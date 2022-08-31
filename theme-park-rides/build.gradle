@@ -1,0 +1,24 @@
+import org.apache.tools.ant.filters.ReplaceTokens
+
+plugins {
+    id 'base'
+}
+
+tasks.register('generateDescriptions', Copy) {
+    group 'Theme park'
+    description 'Generates ride descriptions including token substitution.'
+    from 'descriptions'
+    into "$buildDir/descriptions"
+    filter(ReplaceTokens, tokens: [THEME_PARK_NAME: "Grelephant's Wonder World"])
+}
+
+tasks.register('zipDescriptions', Zip) {
+    group 'Theme park'
+    description 'Generates ride descriptions as Zip file.'
+    dependsOn 'generateDescriptions'
+    from "$buildDir/descriptions"
+    destinationDirectory = buildDir
+    archiveFileName = "descriptions.zip"
+}
+
+defaultTasks 'generateDescriptions'

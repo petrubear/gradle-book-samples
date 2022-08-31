@@ -1,0 +1,10 @@
+plugins {
+    id 'base'
+}
+
+println "This is the $rootProject.name"
+
+tasks.register('copyMessage', Copy) {
+    from 'message.txt'
+    into "$buildDir"
+}
