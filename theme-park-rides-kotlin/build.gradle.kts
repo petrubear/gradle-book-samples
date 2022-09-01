@@ -10,6 +10,7 @@ import kotlin.math.roundToInt
 
 plugins {
     base
+    id("org.barfuin.gradle.taskinfo") version "1.4.0"
 }
 
 val generateDescriptionsTask = tasks.register<Copy>("generateDescriptions") {
@@ -29,7 +30,8 @@ val generateDescriptionsTask = tasks.register<Copy>("generateDescriptions") {
 val zipDescriptionsTask = tasks.register<Zip>("zipDescriptions") {
     group = "Theme Park"
     description = "Generate zip file from descriptions"
-    from("$buildDir/descriptions/")
+//    from("$buildDir/descriptions/")
+    from(generateDescriptionsTask)
     destinationDirectory.set(buildDir)
     archiveFileName.set("descriptions.zip")
     dependsOn(generateDescriptionsTask)
