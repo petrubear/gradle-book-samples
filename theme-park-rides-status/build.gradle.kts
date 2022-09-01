@@ -24,6 +24,10 @@ tasks.named<Jar>("jar") {
     duplicatesStrategy = DuplicatesStrategy.INCLUDE
 }
 
+tasks.named("clean") {
+    delete("bin")
+}
+
 repositories {
     mavenCentral()
 }
