@@ -17,12 +17,15 @@ public class RideStatusService {
 
     public static void main(String[] args) {
         if (args.length != 1) {
-            log.info("A single ride name must be passed");
+            log.error("A single ride name must be passed");
             System.exit(1);
         }
+        val utils = new RideStatusUtils();
         val rideName = args[0];
+        val start = utils.start();
         val rideStatus = getRideStatus(rideName);
-        log.info("Current status of {} is '{}'%n", rideName, rideStatus);
+        val finish = utils.finish(start);
+        log.info("Current status of {} is '{}' [took {}ms]", rideName, rideStatus, finish);
     }
 
     public static String getRideStatus(String ride) {

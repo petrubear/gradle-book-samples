@@ -8,11 +8,18 @@
 plugins {
     java
     application
+    id("org.jetbrains.kotlin.jvm") version "1.7.10"
     id("org.barfuin.gradle.taskinfo") version "1.4.0"
 }
 
 application {
     mainClass.set("emg.gradle.themepark.RideStatusService")
+}
+
+sourceSets {
+    main {
+        java.srcDir("src/main/kotlin")
+    }
 }
 
 val jar = tasks.named<Jar>("jar") {
