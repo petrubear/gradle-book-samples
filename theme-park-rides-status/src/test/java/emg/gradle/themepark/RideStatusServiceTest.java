@@ -1,11 +1,9 @@
 package emg.gradle.themepark;
 
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class RideStatusServiceTest {
 
@@ -15,13 +13,5 @@ class RideStatusServiceTest {
         RideStatusService rideStatusService = new RideStatusService();
         String rideStatus = rideStatusService.getRideStatus(ride);
         assertNotNull(rideStatus);
-    }
-
-    @Test
-    void unknownRideCausesFailure() {
-        RideStatusService rideStatusService = new RideStatusService();
-        assertThrows(IllegalArgumentException.class, () -> {
-            rideStatusService.getRideStatus("dodgems");
-        });
     }
 }

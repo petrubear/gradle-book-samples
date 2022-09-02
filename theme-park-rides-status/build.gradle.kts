@@ -57,6 +57,8 @@ tasks.withType<JavaCompile>().forEach {
 
 tasks.withType<Test> {
     useJUnitPlatform()
+    // useTestNG()
+    exclude("**/*RideStatusServiceFailureTest*")
 }
 
 tasks.register<JavaExec>("runJar") {
