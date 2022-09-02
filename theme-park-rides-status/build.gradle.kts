@@ -10,6 +10,7 @@ plugins {
     application
     id("org.jetbrains.kotlin.jvm") version "1.7.10"
     id("org.barfuin.gradle.taskinfo") version "1.4.0"
+    id("org.unbroken-dome.test-sets") version "4.0.0"
 }
 
 application {
@@ -55,18 +56,23 @@ tasks.withType<JavaCompile>().forEach {
     it.options.isVerbose = true
 }
 
-tasks.withType<Test> {
-    useJUnitPlatform()
-    // useTestNG()
-    exclude("**/*RideStatusServiceFailureTest*")
-}
-
 tasks.register<JavaExec>("runJar") {
 //    classpath = tasks.named<Jar>("jar").map {
     classpath += jar.map { it.outputs.files }.get()
     classpath += configurations.runtimeClasspath.get()
     mainClass.set("emg.gradle.themepark.RideStatusService")
     args = listOf("rollercoaster")
+}
+
+tasks.withType<Test> {
+    useJUnitPlatform()
+    // useTestNG()
+    exclude("**/*RideStatusServiceFailureTest*")
+}
+
+testSets {
+    createTestSet("integrationTest") {
+    }
 }
 
 val lombokVersion by extra("1.18.24")
