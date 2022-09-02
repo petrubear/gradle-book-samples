@@ -24,9 +24,10 @@ val jar = tasks.named<Jar>("jar") {
         attributes["Main-Class"] = "emg.gradle.themepark.RideStatusService"
     }
 
-    from(configurations.runtimeClasspath.get().map {
-        if (it.isDirectory) it else zipTree(it)
-    })
+    // con esto hago un fat jar!
+    // from(configurations.runtimeClasspath.get().map {
+    // if (it.isDirectory) it else zipTree(it)
+    // })
     duplicatesStrategy = DuplicatesStrategy.INCLUDE
     archiveFileName.set("ride-status-service.jar")
 }
@@ -53,16 +54,16 @@ tasks.withType<Test> {
 
 tasks.register<JavaExec>("runJar") {
 //    classpath = tasks.named<Jar>("jar").map {
-    classpath = jar.map {
-        it.outputs.files
-    }.get()
-
+    classpath += jar.map { it.outputs.files }.get()
+    classpath += configurations.runtimeClasspath.get()
+    mainClass.set("emg.gradle.themepark.RideStatusService")
     args = listOf("rollercoaster")
 }
 
 val lombokVersion by extra("1.18.24")
 val slf4jVersion by extra("2.0.0")
 val junitVersion by extra("5.9.0")
+val commonsLangVersion by extra("3.12.0")
 
 dependencies {
     compileOnly("org.projectlombok:lombok:$lombokVersion")
@@ -70,6 +71,8 @@ dependencies {
 
     implementation("org.slf4j:slf4j-api:$slf4jVersion")
     runtimeOnly("org.slf4j:slf4j-simple:$slf4jVersion")
+
+    implementation("org.apache.commons:commons-lang3:$commonsLangVersion")
 
     testImplementation("org.junit.jupiter:junit-jupiter-api:$junitVersion")
     testImplementation("org.junit.jupiter:junit-jupiter-params:$junitVersion")

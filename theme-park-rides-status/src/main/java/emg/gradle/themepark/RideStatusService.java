@@ -2,6 +2,7 @@ package emg.gradle.themepark;
 
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
+import org.apache.commons.lang3.StringUtils;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -25,7 +26,7 @@ public class RideStatusService {
     }
 
     public static String getRideStatus(String ride) {
-        val rideStatuses = readFile(String.format("%s.txt", ride));
+        val rideStatuses = readFile(String.format("%s.txt", StringUtils.trim(ride)));
         return rideStatuses.get(new Random().nextInt(rideStatuses.size()));
     }
 
