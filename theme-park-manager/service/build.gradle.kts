@@ -1,6 +1,6 @@
 plugins {
     id("java-library")
-    //id "java-library"
+    id("org.jetbrains.kotlin.jvm") version "1.7.10"
 }
 
 repositories {
@@ -12,6 +12,7 @@ dependencies {
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.7.2")
     testImplementation("org.junit.jupiter:junit-jupiter-params:5.7.2")
     implementation("org.apache.commons:commons-lang3:3.12.0")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.7.10")
 }
 
 tasks.named<Jar>("jar") {
