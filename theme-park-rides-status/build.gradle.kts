@@ -23,6 +23,13 @@ sourceSets {
     }
 }
 
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(17))
+        vendor.set(JvmVendorSpec.AMAZON)
+    }
+}
+
 val jar = tasks.named<Jar>("jar") {
     doFirst {
         println("Setting Manifest")
